@@ -30,7 +30,7 @@ def pairwise(df, operation, columns = None):
             raise ValueError("No point in a list containing 'all', silly.")
         operation = pd.unique(operation)
         return pd.concat(
-            [interactions(df, op, columns) for op in operation],
+            [pairwise(df, op, columns) for op in operation],
             axis=1
         )
 
