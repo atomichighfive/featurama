@@ -9,9 +9,11 @@ Module for computing interaction features in datasets
 Form interactions between all pairs of numeric columns
 
 Arguments:
-    df -- the DataFrame to run on
-    operation -- the operation(s) to compute between pairs
-    columns -- specify a subset of columns to consider
+    `df` -- the DataFrame to run on
+    
+    `operation` -- the operation(s) to compute between pairs
+    
+    `columns` -- specify a subset of columns to consider
 
 Possible operations are:
     ```
