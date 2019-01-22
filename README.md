@@ -13,7 +13,7 @@ Arguments:
 * `df`:
 the DataFrame to run on
 * `operation`:
-the operation(s) to compute between pairs
+string or list indicating the operation(s) to compute between pairs
 * `columns`:
 specify a subset of columns to consider
 
