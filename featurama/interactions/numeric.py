@@ -1,6 +1,8 @@
 import pandas as pd
+import dask.dataframe as dd
 import numpy as np
 from itertools import combinations, permutations
+from multiprocessing import Pool, cpu_count
 
 def pairwise(df, operation, columns = None):
     """Form interactions between all pairs of numeric columns
@@ -15,7 +17,16 @@ def pairwise(df, operation, columns = None):
         'power', 'root', 'log', 'arctan', 'mod',
         'arctanh', 'l1', 'l2', 'max' or 'all'
     """
-    result = pd.DataFrame(index=df.index)
+    if type(df) is dd.core.DataFrame:
+        concat = dd.concat
+    elif type(df) is pd.core.frame.DataFrame:
+        concat = pd.concat
+    else:
+        raise ValueError("df is not a pandas.core.frame.DataFrame or a dask.dataframe.core.DataFrame.")
+
+
+    result = df.loc[:,[]]
+
     if columns is None:
         columns = [c for c in df.columns if np.issubdtype(df[c], np.number)]
 
@@ -29,7 +40,7 @@ def pairwise(df, operation, columns = None):
         if 'all' in operation:
             raise ValueError("No point in a list containing 'all', silly.")
         operation = pd.unique(operation)
-        return pd.concat(
+        return concat(
             [pairwise(df, op, columns) for op in operation],
             axis=1
         )
@@ -93,5 +104,5 @@ def pairwise(df, operation, columns = None):
 
     for c1, c2 in pairs:
         result[name % (c1,c2)] = f(df, c1, c2)
-    
+
     return result
