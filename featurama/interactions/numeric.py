@@ -105,4 +105,4 @@ def pairwise(df, operation, columns = None):
     for c1, c2 in pairs:
         result[name % (c1,c2)] = f(df, c1, c2)
 
-    return result
+    return result, result.columns
